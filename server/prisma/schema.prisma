@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique @db.VarChar(50)
+  imageUrl  String    @map("image_url") @db.VarChar(255)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  blogs     Blog[]
+  books     Book[]
+
+  @@map("categories")
+}
+
+model Book {
+  id          Int         @id @default(autoincrement())
+  name        String      @db.VarChar(255)
+  description String?
+  price       Decimal     @db.Decimal(10, 2)
+  offerPrice  Decimal     @map("offer_price") @db.Decimal(10, 2)
+  categoryId  Int?        @map("category_id")
+  popular     Boolean?    @default(false)
+  inStock     Boolean?    @default(true) @map("in_stock")
+  createdAt   DateTime?   @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt   DateTime?   @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  images      BookImage[]
+  category    Category?   @relation(fields: [categoryId], references: [id], onUpdate: NoAction)
+  orderItems  OrderItem[]
+
+  @@index([categoryId], map: "idx_books_category")
+  @@map("books")
+}
+
+model BookImage {
+  id        Int       @id @default(autoincrement())
+  bookId    Int?      @map("book_id")
+  imageUrl  String    @map("image_url") @db.VarChar(255)
+  position  Int?      @default(0)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  book      Book?     @relation(fields: [bookId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([bookId], map: "idx_book_images_book")
+  @@map("book_images")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  firstName    String?   @map("first_name") @db.VarChar(100)
+  lastName     String?   @map("last_name") @db.VarChar(100)
+  phone        String?   @db.VarChar(20)
+  isAdmin      Boolean?  @default(false) @map("is_admin")
+  createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt    DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  addresses    Address[]
+  orders       Order[]
+
+  @@map("users")
+}
+
+model Address {
+  id        Int       @id @default(autoincrement())
+  userId    Int?      @map("user_id")
+  firstName String    @map("first_name") @db.VarChar(100)
+  lastName  String    @map("last_name") @db.VarChar(100)
+  email     String    @db.VarChar(255)
+  city      String    @db.VarChar(100)
+  country   String    @db.VarChar(100)
+  phone     String    @db.VarChar(20)
+  isDefault Boolean?  @default(false) @map("is_default")
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  orders    Order[]
+
+  @@index([userId], map: "idx_addresses_user")
+  @@map("addresses")
+}
+
+model Order {
+  id            Int         @id @default(autoincrement())
+  userId        Int?        @map("user_id")
+  addressId     Int?        @map("address_id")
+  totalAmount   Decimal     @map("total_amount") @db.Decimal(10, 2)
+  paymentMethod String      @map("payment_method") @db.VarChar(50)
+  isPaid        Boolean?    @default(false) @map("is_paid")
+  status        String?     @default("Order Placed") @db.VarChar(50)
+  createdAt     DateTime?   @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt     DateTime?   @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  items         OrderItem[]
+  address       Address?    @relation(fields: [addressId], references: [id], onUpdate: NoAction)
+  user          User?       @relation(fields: [userId], references: [id], onUpdate: NoAction)
+
+  @@index([status], map: "idx_orders_status")
+  @@index([userId], map: "idx_orders_user")
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int       @id @default(autoincrement())
+  orderId   Int?      @map("order_id")
+  bookId    Int?      @map("book_id")
+  quantity  Int
+  price     Decimal   @db.Decimal(10, 2)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  book      Book?     @relation(fields: [bookId], references: [id], onUpdate: NoAction)
+  order     Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([orderId], map: "idx_order_items_order")
+  @@map("order_items")
+}
+
+model Blog {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  categoryId Int?      @map("category_id")
+  imageUrl   String    @map("image_url") @db.VarChar(255)
+  content    String?
+  createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt  DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  category   Category? @relation(fields: [categoryId], references: [id], onUpdate: NoAction)
+
+  @@map("blogs")
+}
