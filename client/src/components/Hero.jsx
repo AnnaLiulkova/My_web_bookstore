@@ -24,9 +24,18 @@ const Hero = () => {
            style={{backgroundImage: `url("/assets/bg.png")`}}>
         <div className="max-padd-container flex flex-col h-full justify-center pt-8">
             <h3 className="bold-24 text-secondary font-thin">Explore Books You'll Love</h3>
-            <h1 className="h1 max-w-174.75 !font=[800] leading-none ">Find Your Next Book</h1>
-            <div className='flex mt-4'>
-                <Link to={'/shop'} className="bg-white text-xs font-medium pl-6 rounded-full flexCenter gap-x-6 group "> Check our latest Stock 
+            <h1 className="h1 max-w-174.75 !font=[800] leading-none mt-2">Find Your Next Book</h1>
+            
+            {/* НОВИЙ ТЕКСТ ТУТ */}
+            <h2 className='text-3xl md:text-4xl font-bold text-gray-800 mt-4'>
+              Up to 40% Off This Week
+            </h2>
+            <p className='text-gray-600 mt-4 max-w-lg leading-relaxed text-sm sm:text-base'>
+              Discover the joy of reading with our carefully curated collection of books. Whether you're searching for the latest bestsellers, timeless classics, or hidden gems, we've got something for every reader. Enjoy fast delivery, secure checkout, and unbeatable prices your next great read is just a click away!
+            </p>
+
+            <div className='flex mt-8'>
+                <Link to={'/shop'} className="bg-white text-xs font-medium pl-6 rounded-full flexCenter gap-x-6 group w-fit"> Check our latest Stock 
                 <FaArrowRight className="bg-secondary text-white rounded-full h-11 w-11 p-3 m-0.75 border border-white group-hover:bg-primary group-hover:text-black transition-all duration-500 "/>
                 </Link>
             </div>
