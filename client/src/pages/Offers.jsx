@@ -16,7 +16,7 @@ const Offers = () => {
   }, []);
 
   return (
-    <div className='max-padd-container py-16 pt-28'>
+    <div className='max-padd-container py-16 pt-20'>
       
       {/* 1. FESTIVE PROMO BANNER (Покращений дизайн) */}
       <div className="w-full bg-gradient-to-r from-violet-600 to-pink-700 rounded-3xl p-8 sm:p-12 mb-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between relative overflow-hidden border border-purple-500/30">

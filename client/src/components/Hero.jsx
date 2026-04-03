@@ -19,7 +19,7 @@ const Hero = () => {
     }, [books])
 
   return (
-    <section className="max-padd-container flex gap-6 h-158.5 mt-16">
+    <section className="max-padd-container flex gap-6 h-158.5 mt-20">
       <div className="flex-5 bg-cover bg-center bg-no-repeat rounded-2xl" 
            style={{backgroundImage: `url("/assets/bg.png")`}}>
         <div className="max-padd-container flex flex-col h-full justify-center pt-8">
