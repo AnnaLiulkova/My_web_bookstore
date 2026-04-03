@@ -3,53 +3,58 @@ import Title from '../components/Title'
 
 const About = () => {
   return (
-    // Changed the background of the entire section to a very light gray so the white card stands out
-    <div className=' max-padd-container py-16 pt-28 min-h-screen'>
+    <div className='max-padd-container py-16 pt-28 min-h-screen'>
       
-      <Title title1={"About"} title2={"Us"} titleStyles={"pb-10"} />
-      
-      {/* MAIN BLOCK: White card with shadow and rounded corners */}
-      <div className='flex flex-col md:flex-row gap-12 bg-white p-10 sm:p-14 rounded-3xl shadow-lg border border-slate-100'>
+      <Title title1={"About"} title2={"Us"} titleStyles={"pb-12"} />
+
+      {/* MAIN CARD */}
+      <div className='relative overflow-hidden flex flex-col lg:flex-row gap-12 bg-gradient-to-br from-white to-slate-50 p-8 sm:p-12 lg:p-14 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-slate-200'>
         
-        {/* Image on the left (added a soft shadow for the photo) */}
-        <div className='flex-1 overflow-hidden rounded-2xl shadow-md'>
-          <img 
-            src="/assets/bg.png" 
-            alt="About Us" 
-            className='w-full h-full object-cover max-h-[450px] hover:scale-105 transition-all duration-500'
-          />
+        {/* Decorative blur circles */}
+        <div className='absolute top-0 right-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl pointer-events-none'></div>
+        <div className='absolute bottom-0 left-0 w-52 h-52 bg-primary/40 rounded-full blur-3xl pointer-events-none'></div>
+
+        {/* IMAGE */}
+        <div className='flex-1 relative z-10'>
+          <div className='overflow-hidden rounded-[1.8rem] shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-white/60'>
+            <img
+              src="/assets/bg.png"
+              alt="About Us"
+              className='w-full h-full object-cover max-h-[500px] hover:scale-105 transition-all duration-700'
+            />
+          </div>
         </div>
-        
-        {/* Text section on the right */}
-        <div className='flex-1 flex flex-col justify-center gap-6'>
-          {/* Dark slate heading */}
-          <h3 className='h2 text-slate-900 leading-tight'>
-            Welcome to <span className='text-secondary'>BookS</span> — your cozy book corner!
+
+        {/* TEXT CONTENT */}
+        <div className='flex-1 flex flex-col justify-center gap-6 relative z-10'>
+          
+          <div className='inline-block w-fit px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-semibold tracking-wide'>
+            Our Story
+          </div>
+
+          <h3 className='text-3xl sm:text-4xl font-bold text-slate-900 leading-tight max-w-xl'>
+            Welcome to <span className='text-secondary'>BookS</span> — your cozy world of stories
           </h3>
-          
-          {/* Rich dark gray text for better readability */}
+
           <p className='text-slate-700 text-lg leading-relaxed'>
-            We are a team of passionate book lovers united by a single goal: to make reading accessible, exciting, and inspiring for everyone. We believe that every book holds a whole world ready to reveal its secrets.
+            We are a team of passionate book lovers united by one mission: to make reading accessible, exciting, and inspiring for everyone. Every book opens the door to a new world, a new perspective, and a new adventure.
           </p>
-          
+
           <p className='text-slate-700 text-lg leading-relaxed'>
-            Our selection is carefully curated: from gripping thrillers to in-depth programming textbooks. We strive to be more than just a store, but a community where everyone can find a story to their liking.
+            Our collection is thoughtfully curated — from thrilling fiction and timeless classics to educational and programming books. We want to be more than just a bookstore — we want to be your favorite reading place.
           </p>
-          
-          {/* STATISTICS SECTION: Made white blocks on a gray background for contrast */}
-          <div className='flex gap-5 mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner'>
-            
-            <div className='bg-white p-5 rounded-xl flex-1 text-center shadow-sm border border-slate-100'>
-               {/* Using secondary color (purple) for numbers */}
-               <h4 className='h1 text-secondary font-extrabold'>10k+</h4>
-               <p className='text-sm text-slate-600 font-medium'>Books in stock</p>
+
+          {/* STATS */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6'>
+            <div className='bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200 hover:-translate-y-1 transition-all duration-300'>
+              <h4 className='text-4xl font-extrabold text-secondary'>10k+</h4>
+              <p className='text-sm text-slate-600 font-medium mt-2'>Books in stock</p>
             </div>
-            
-            <div className='bg-white p-5 rounded-xl flex-1 text-center shadow-sm border border-slate-100'>
-               <h4 className='h1 text-secondary font-extrabold'>5k+</h4>
-               <p className='text-sm text-slate-600 font-medium'>Happy readers</p>
+
+            <div className='bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200 hover:-translate-y-1 transition-all duration-300'>
+              <h4 className='text-4xl font-extrabold text-secondary'>5k+</h4>
+              <p className='text-sm text-slate-600 font-medium mt-2'>Happy readers</p>
             </div>
-            
           </div>
         </div>
       </div>
